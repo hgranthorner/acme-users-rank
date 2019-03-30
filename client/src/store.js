@@ -71,4 +71,8 @@ const createUser = user => {
   }
 }
 
-export { store, fetchUsers, deleteUser, createUser }
+// helper functions
+
+const getUserFromStore = id => store.getState.users.find(u => u.id === id)
+
+export { store, fetchUsers, deleteUser, createUser, getUserFromStore }

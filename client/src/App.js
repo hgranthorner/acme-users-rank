@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchUsers } from './store'
-import { Nav, Home, UserList, CreateUser } from './components'
+import { Nav, Home, UserList, CreateUser, EditUser } from './components'
 
 const mapStateToProps = ({ users }) => ({ users })
 
@@ -22,6 +22,7 @@ const App = ({ fetchUsers, users }) => {
         <Route path="/" exact render={() => <Home userCount={users.length} />} />
         <Route path="/users" exact render={() => <UserList users={users} />} />
         <Route path="/users/create" exact component={CreateUser} />
+        <Route path="/users/:id" exact render={({ match }) => <EditUser id={match.params.id} />} />
         {topUser ? <Route path="/users/topRanked" exact render={() => <UserList users={[topUser]} />} /> : null}
       </Switch>
     </Router>
