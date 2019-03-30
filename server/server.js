@@ -45,6 +45,13 @@ app.get('/api/users/:id', (req, res, next) => {
     .catch(e => console.log(`Failed to get the user. Heres why:\n${e}`))
 })
 
+app.post('/api/users', (req, res, next) => {
+  console.log(req.body)
+  User.create(req.body)
+    .then(user => res.send(user))
+    .catch(e => console.log(`Failed to create the user in the db. Heres why:\n${e}`))
+})
+
 app.delete('/api/users/:id', (req, res, next) => {
   User.destroy({ where: { id: req.params.id } })
     .then(() => res.sendStatus(204))

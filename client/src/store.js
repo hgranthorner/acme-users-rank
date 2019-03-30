@@ -10,18 +10,22 @@ const initialState = {
 
 const GET_USERS = Symbol('getusers')
 const REMOVE_USER = Symbol('deleteuser')
+const ADD_USER = Symbol('createuser')
 
 // action creators
 
 const getUsers = users => ({ type: GET_USERS, users })
 const removeUser = id => ({ type: REMOVE_USER, id })
+const addUser = user => ({ type: ADD_USER, user })
 
 // reducers
 
-const userReducer = (state = initialState, { type, users, id }) => {
+const userReducer = (state = initialState, { type, users, id, user }) => {
   switch (type) {
     case GET_USERS:
       return { ...state, users }
+    case ADD_USER:
+      return { ...state, users: [...state.users, user] }
     case REMOVE_USER:
       const newUsers = [...state.users]
       return { ...state, users: newUsers.filter(u => u.id !== id) }
@@ -31,6 +35,8 @@ const userReducer = (state = initialState, { type, users, id }) => {
 }
 
 const store = createStore(userReducer, applyMiddleware(thunk))
+
+// thunks
 
 const fetchUsers = () => {
   return dispatch => {
@@ -52,4 +58,17 @@ const deleteUser = id => {
   }
 }
 
-export { store, fetchUsers, deleteUser }
+const createUser = user => {
+  console.log('creating user', user)
+  return dispatch => {
+    return axios
+      .post('api/users', user)
+      .then(res => {
+        dispatch(addUser(res.data))
+      })
+      .then(() => console.log('user created'))
+      .catch(e => console.error(`Failed to create user. Here's why:\n${e}`))
+  }
+}
+
+export { store, fetchUsers, deleteUser, createUser }
