@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom"
 import { connect } from 'react-redux'
 import { deleteUser } from '../../store'
 
@@ -25,7 +26,8 @@ const User = ({ user, deleteUser }) => {
         >
           Delete
         </button>
-        <a href="">Edit</a>
+        <Link to={`/users/${user.id}`}>Edit</Link>
+
       </div>
     </div>
   )

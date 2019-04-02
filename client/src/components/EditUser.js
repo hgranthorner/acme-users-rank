@@ -7,8 +7,8 @@ const mapStateToProps = state => ({})
 const mapDispatchToProps = {}
 
 class EditUser extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       name: '',
       bio: '',
@@ -18,11 +18,14 @@ class EditUser extends Component {
   }
 
   componentDidMount() {
-    const { name, bio, rank } = getUserFromStore(id)
+    console.log('props: ',this.props)
+    const user = getUserFromStore(this.props.id)
+    console.log(user)
+    // if () const { name, bio, rank } = getUserFromStore(this.props.id)
   }
 
   render() {
-    return <div />
+    return <div>In Edit user</div>
   }
 }
 

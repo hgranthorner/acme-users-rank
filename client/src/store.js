@@ -73,6 +73,10 @@ const createUser = user => {
 
 // helper functions
 
-const getUserFromStore = id => store.getState.users.find(u => u.id === id)
+const getUserFromStore = id => {
+  console.log('store state: ', store.getState())
+  if (store.getState().users.length > 0) return store.getState().users.find(u => u.id === id*1)
+  else return
+}
 
 export { store, fetchUsers, deleteUser, createUser, getUserFromStore }
